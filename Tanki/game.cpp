@@ -20,6 +20,7 @@ void Game::run()
 	{
 		processEvents();
 		map->checkCollision();
+		map->checkCollision(BulletHandler::getBullets());
 		timeSinceLastUpdate += clock.restart();
 		while (timeSinceLastUpdate > TimePerFrame)
 		{
@@ -61,10 +62,10 @@ void Game::render()
 		mWindow.draw(*(map->getBarriers()[i]));
 	}
 
-	std::vector<Bullet*> bullets = BulletHandler::getBullets();
-	for (size_t i = 0; i < bullets.size(); i++)
+	std::list<Bullet*> bullets = BulletHandler::getBullets();
+	for (auto &el : bullets)
 	{
-		mWindow.draw(*bullets[i]);
+		mWindow.draw(*el);
 	}
 
 	mWindow.draw(*mTank);

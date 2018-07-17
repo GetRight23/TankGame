@@ -33,7 +33,7 @@ void Tank::moveUp(sf::Time dt)
 	direction.x = 0.0f;
 	direction.y = -1.0f;
 	direction *= 0.25f * dt.asMilliseconds();
-	setPrevPos(getPosition().x, getPosition().y);
+	setPrevPos(getPosition().x, getPosition().y );
 	move(direction);
 }
 
@@ -44,9 +44,6 @@ void Tank::moveDown(sf::Time dt)
 	direction.x = 0.0f;
 	direction.y = 1.0f;
 	direction *= 0.25f * dt.asMilliseconds();
-	system("cls");
-	std::cout << "move down";
-	std::cout << direction.x << " " << direction.y << std::endl;
 	setPrevPos(getPosition().x, getPosition().y);
 	move(direction);
 }

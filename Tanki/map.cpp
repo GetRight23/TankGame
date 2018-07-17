@@ -5,6 +5,7 @@
 #include <SFML\Graphics\Transformable.hpp>
 #include <iterator>
 #include <SFML\Graphics.hpp>
+#include <exception>
 
 Map::Map(Tank* Tank)
 {
@@ -52,10 +53,37 @@ bool Map::checkCollision()
 {
 	for (int i = 0; i < vecBar.size(); i++)
 	{
-		if (tank->getGlobalBounds().intersects((vecBar[i])->getGlobalBounds()))
+		if (tank->getGlobalBounds().intersects((vecBar[i])->getGlobalBounds())
+			|| tank->getGlobalBounds().intersects(sf::FloatRect(-1, -1, 1280, 1))
+			|| tank->getGlobalBounds().intersects(sf::FloatRect(-1, -1, 1, 720))
+			|| tank->getGlobalBounds().intersects(sf::FloatRect(1281, -1, 1, 720))
+			|| tank->getGlobalBounds().intersects(sf::FloatRect(-1, 720, 1280, 1)))
 		{
 			std::cout << "checkCollision" << std::endl;
 			tank->setPosition(tank->getPrevX(), tank->getPrevY());
+		}
+	}
+	return true;
+}
+
+bool Map::checkCollision(std::list<Bullet*>& bullets)
+{
+	for (auto &el : bullets)
+	{
+		for (int j = 0; j < vecBar.size(); j++)
+		{
+			if (el->getGlobalBounds().intersects((vecBar[j])->getGlobalBounds()) 
+				|| el->getPosition().x > getSize().x 
+				|| el->getPosition().y > getSize().y
+				|| el->getPosition().x < 1
+				|| el->getPosition().y < 1
+				)
+			{
+				std::cout << "UDALENO NAH\n";
+				bullets.remove(el);
+				std::cout << "darova\n";
+				return true;
+			}
 		}
 	}
 	return true;

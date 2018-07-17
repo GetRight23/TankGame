@@ -3,6 +3,8 @@
 #include "SFML\Graphics\RectangleShape.hpp"
 #include <vector>
 #include "tank.h"
+#include "Bullet.h"
+#include <list>
 
 
 class Map : public sf::RectangleShape
@@ -20,4 +22,5 @@ public:
 	void loadMap();
 	const std::vector<Barrier*>& getBarriers() { return vecBar; }
 	bool checkCollision();
+	bool checkCollision(std::list<Bullet*>& bullets);
 };

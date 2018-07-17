@@ -21,6 +21,7 @@ public:
 		setTexture(bulletTexture);
 		direction = a_direction;
 	}
+	~Bullet() {}
 	sf::Vector2f getDir() { return this->direction; }
 	float getSpeed() { return this->bulletSpeed; }
 	sf::Vector2f getTrans(sf::Time dt) 

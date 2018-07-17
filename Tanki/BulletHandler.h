@@ -1,5 +1,5 @@
 #pragma once
-
+#include <list>
 #include <vector>
 #include "Bullet.h"
 #include <SFML\System\Time.hpp>
@@ -8,7 +8,7 @@
 class BulletHandler
 {
 private:
-	static std::vector<Bullet*> bulletList;
+	static std::list<Bullet*> bulletList;
 public:
 	static void addBullet(Bullet* bullet)
 	{
@@ -16,15 +16,15 @@ public:
 	}
 	static void processBullets(sf::Time dt)
 	{
-		for (size_t i = 0; i < bulletList.size(); i++)
+		for (auto &el : bulletList)
 		{
-			if (bulletList[i] != NULL)
+			if (el != NULL)
 			{
-				sf::Vector2f dir = bulletList[i]->getDir();
+				sf::Vector2f dir = el->getDir();
 
-				bulletList[i]->move(bulletList[i]->getTrans(dt));
+				el->move(el->getTrans(dt));
 			}		
 		}
 	}
-	static std::vector<Bullet*> getBullets() { return bulletList; }
+	static std::list<Bullet*>& getBullets() { return bulletList; }
 };

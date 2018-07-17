@@ -1,3 +1,3 @@
 #include "BulletHandler.h"
 
-std::vector<Bullet*> BulletHandler::bulletList;
+std::list<Bullet*> BulletHandler::bulletList;
